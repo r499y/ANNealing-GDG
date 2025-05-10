@@ -1,0 +1,24 @@
+{
+  "general_overview": "This is a summary of the current analysis.",
+  "treshold": 0.75,
+  "items": {
+    "item1": {
+      "title": "File Analysis Report",
+      "path_or_link": "/files/report.pdf",
+      "description": "This report contains analysis results.",
+      "relevance_score": 0.70
+    },
+    "item2": {
+      "title": "Code Quality Report",
+      "path_or_link": "/files/quality-check.html",
+      "description": "Summary of code quality and linting issues.",
+      "relevance_score": 0.82
+    },
+    "item3": {
+      "title": "Performance Benchmark",
+      "path_or_link": "/files/benchmark.csv",
+      "description": "Data from performance testing on recent builds.",
+      "relevance_score": 0.91
+    }
+  }
+}
