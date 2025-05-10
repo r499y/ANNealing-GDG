@@ -31,6 +31,8 @@ body {
   color: #d4d4d4;
   min-height: 100vh;
   overflow-x: hidden;
+  /* Rimuoviamo overflow-y per evitare il doppio scrolling */
+  overflow-y: hidden;
 }
 
 .content-container {
@@ -209,6 +211,9 @@ body {
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px; /* Imposta un'altezza massima */
 }
 
 .file-box:hover {
@@ -231,6 +236,9 @@ body {
 .file-list {
   list-style: none;
   padding: 0;
+  overflow-y: auto; /* Abilita la barra di scorrimento verticale quando necessario */
+  flex-grow: 1; /* Permette alla lista di espandersi */
+  max-height: 100%; /* Usa tutto lo spazio disponibile */
 }
 
 .file-item {
