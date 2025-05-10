@@ -6,7 +6,8 @@ export default function Dashboard() {
   const [backendData, setBackendData] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [expandedItemTitle, setExpandedItemTitle] = useState(null);
-
+  // Add state to track checked files
+  const [checkedFiles, setCheckedFiles] = useState({});
 
   useEffect(() => {
     fetch("/sample-data.json")
@@ -14,6 +15,13 @@ export default function Dashboard() {
       .then((data) => {
         console.log("Dati JSON caricati:", data);
         setBackendData(data);
+        
+        // Initialize all files as checked
+        const initialCheckedState = {};
+        Object.values(data.items).forEach(item => {
+          initialCheckedState[item.title] = true;
+        });
+        setCheckedFiles(initialCheckedState);
       })
       .catch((err) => {
         console.error("Errore nel caricamento del file JSON:", err);
@@ -42,11 +50,22 @@ export default function Dashboard() {
     "Translate error message from g++",
   ];
 
+  // Handle checkbox change
+  const handleCheckboxChange = (title, event) => {
+    // Stop propagation to prevent expanding/collapsing when clicking checkbox
+    event.stopPropagation();
+    
+    setCheckedFiles(prev => ({
+      ...prev,
+      [title]: !prev[title]
+    }));
+  };
+
   return (
     <div className="dashboard">
       {/* Sidebar toggle button */}
-      <button className="tiny-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
-        Button
+      <button className="sidebar-toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
+        <span className="hamburger-icon"></span>
       </button>
 
       {/* Sidebar */}
@@ -57,202 +76,148 @@ export default function Dashboard() {
             ✕
           </button>
         </div>
-        <ul>
+        <ul className="conversation-list">
           {pastConversations.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li key={index}>
+              <div className="conversation-item">
+                <span className="conversation-icon">💬</span>
+                <span className="conversation-text">{item}</span>
+              </div>
+            </li>
           ))}
         </ul>
       </div>
 
       {/* Main content */}
-      <div className="top-section">
-        <div className="task-box">
-          <h1>Hi Giuse, you were working on:</h1>
-          <ul>
-            {tasks.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ul>
+      <div className="content-container">
+        <div className="top-section">
+          <div className="task-box">
+            <h1>Hi Giuse, you were working on:</h1>
+            <ul className="task-list">
+              {tasks.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <div className="files-section">
-        <div className="file-box">
-          <h2>Recently used files:</h2>
-          <ul style={{ listStyle: "none", padding: 0 }}>
-  {backendData &&
-    Object.values(backendData.items)
-      .filter((item) => item.relevance_score > backendData.treshold)
-      .map((item) => {
-        const isExpanded = expandedItemTitle === item.title;
-        return (
-          <li
-            key={item.title}
-            style={{
-              color: "#9CDCFE",
-              padding: "8px 0",
-              borderBottom: "1px solid #2d2d2e",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-              onClick={() =>
-                setExpandedItemTitle(isExpanded ? null : item.title)
-              }
-            >
-              <span>{item.title}</span>
-              <a
-                href={item.path_or_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  fontSize: "12px",
-                  color: "#d7ba7d",
-                  textDecoration: "none",
-                }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                {item.path_or_link}
-              </a>
+        <div className="files-section">
+          <div className="file-box">
+            <div className="file-box-header">
+              <h2>Recently used files</h2>
             </div>
+            <ul className="file-list">
+              {backendData &&
+                Object.values(backendData.items)
+                  .filter((item) => item.relevance_score > backendData.treshold)
+                  .map((item) => {
+                    const isExpanded = expandedItemTitle === item.title;
+                    return (
+                      <li key={item.title} className="file-item">
+                        <div
+                          className="file-item-header"
+                          onClick={() =>
+                            setExpandedItemTitle(isExpanded ? null : item.title)
+                          }
+                        >
+                          <div className="file-name">
+                            <span className="file-icon">📄</span>
+                            <span>{item.title}</span>
+                          </div>
+                          <a
+                            href={item.path_or_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="file-path"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {item.path_or_link}
+                          </a>
+                        </div>
+                        {isExpanded && (
+                          <div className="file-item-details">
+                            {item.description}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+            </ul>
+          </div>
 
-            {isExpanded && (
-              <div
-                style={{
-                  marginTop: "6px",
-                  fontSize: "13px",
-                  color: "#cccccc",
-                  paddingLeft: "8px",
-                }}
-              >
-                {item.description}
-              </div>
-            )}
-          </li>
-        );
-      })}
-</ul>
-
-
-        </div>
-
-        <div className="file-box">
-          <h2>Unused files:</h2>
-          <ul style={{ listStyle: "none", padding: 0 }}>
-  {backendData &&
-    Object.values(backendData.items)
-      .filter((item) => item.relevance_score > backendData.treshold)
-      .map((item) => {
-        const isExpanded = expandedItemTitle === item.title;
-        return (
-          <li
-            key={item.title}
-            style={{
-              color: "#9CDCFE",
-              padding: "8px 0",
-              borderBottom: "1px solid #2d2d2e",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-              onClick={() =>
-                setExpandedItemTitle(isExpanded ? null : item.title)
-              }
-            >
-              <span>{item.title}</span>
-              <a
-                href={item.path_or_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  fontSize: "12px",
-                  color: "#d7ba7d",
-                  textDecoration: "none",
-                }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                {item.path_or_link}
-              </a>
+          <div className="file-box">
+            <div className="file-box-header">
+              <h2>Unused files</h2>
             </div>
-
-            {isExpanded && (
-              <div
-                style={{
-                  marginTop: "6px",
-                  fontSize: "13px",
-                  color: "#cccccc",
-                  paddingLeft: "8px",
-                }}
-              >
-                {item.description}
-              </div>
-            )}
-          </li>
-        );
-      })}
-</ul>
+            <ul className="file-list">
+              {backendData &&
+                Object.values(backendData.items)
+                  .filter((item) => item.relevance_score < backendData.treshold)
+                  .map((item) => {
+                    const isExpanded = expandedItemTitle === item.title;
+                    return (
+                      <li key={item.title} className="file-item">
+                        <div
+                          className="file-item-header"
+                        >
+                          <div 
+                            className="file-name"
+                            onClick={(e) => {
+                              // Evita che il click sulla casella di spunta espanda la voce
+                              if (!e.target.classList.contains('file-checkbox')) {
+                                setExpandedItemTitle(isExpanded ? null : item.title);
+                              }
+                            }}
+                          >
+                            <span className="file-checkbox-container">
+                              <input 
+                                type="checkbox"
+                                className="file-checkbox"
+                                checked={checkedFiles[item.title] || false}
+                                onChange={(e) => handleCheckboxChange(item.title, e)}
+                              />
+                            </span>
+                            <span>{item.title}</span>
+                          </div>
+                          <a
+                            href={item.path_or_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="file-path"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {item.path_or_link}
+                          </a>
+                        </div>
+                        {isExpanded && (
+                          <div className="file-item-details">
+                            {item.description}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <div className="button-container">
-        <button className="main-btn">Accept reorder</button>
+        <div className="button-container">
+          <button className="main-btn">Accept reorder</button>
+        </div>
       </div>
 
       {/* Overlay popup */}
       {selectedItem && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(0,0,0,0.6)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 9999,
-          }}
-        >
-          <div
-            style={{
-              background: "#1e1e1e",
-              color: "#D4D4D4",
-              border: "1px solid #9CDCFE",
-              borderRadius: "12px",
-              padding: "24px",
-              maxWidth: "500px",
-              width: "90%",
-              position: "relative",
-            }}
-          >
+        <div className="modal-overlay">
+          <div className="modal-content">
             <button
+              className="modal-close-btn"
               onClick={() => setSelectedItem(null)}
-              style={{
-                position: "absolute",
-                top: "8px",
-                right: "8px",
-                background: "none",
-                border: "none",
-                color: "#ffffff",
-                fontSize: "18px",
-                cursor: "pointer",
-              }}
             >
               ✕
             </button>
-            <h3>{selectedItem.title}</h3>
-            <p>{selectedItem.description}</p>
+            <h3 className="modal-title">{selectedItem.title}</h3>
+            <p className="modal-description">{selectedItem.description}</p>
           </div>
         </div>
       )}
