@@ -172,13 +172,21 @@ export default function Dashboard() {
                     <div className="bottom-widgets-container">
                         <div className="call-suggestion-widget">
                             <img src="/Owl.png" alt="Suggerimento" className="suggestion-icon" />
-                            <p>I suggest scheduling calls more evenly throughout the day, taking into account the varying focus levels of team members, in order to minimize the impact on their productivity.</p>
+                            <p>Avoid scheduling status meetings during peak productivity hours and consider clustering meetings early or right after lunch, when focus is naturally lower. Reducing mid-flow interruptions will significantly boost deep work and output consistency.</p>
                         </div>
                         <div className="loss-estimation-widget">
                             <p>
-                                Estimated financial loss due to distractions: <br/>
-                                <span className="loss-amount">${1250.50.toFixed(2)}</span>
+                                Estimated monthly financial loss due to poorly timed manager calls: <br/>
+                                <span className="loss-amount">${3412.80.toFixed(2)}</span>
+                    
                             </p>
+                            <ul className="loss-details">
+                                <li>Based on:</li>
+        <li>7 project teams affected</li>
+        <li>8.8 weekly call h/team during core focus time</li>
+        <li>~15% output drop attributed to interruptions</li>
+        <li>$65/hour average developer cost</li>
+    </ul>
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ const ProductivityChart = () => {
         datasets: [
             {
                 label: 'Productivity (%)',
-                data: [88, 83, 81, 79, 85, 84, 80],
+                data: [87, 84, 81, 79, 85, 83, 78],
                 fill: false,
                 backgroundColor: 'rgba(75,192,192,0.2)',
                 borderColor: 'rgba(75,192,192,1)',
