@@ -1,0 +1,76 @@
+{
+  "projects": [
+    {
+      "name": "Smart Traffic Optimizer",
+      "description": "Intelligent system to optimize urban traffic flow using IoT sensors and predictive models.",
+      "collaborators": ["Alice R.", "Mark B.", "Julia T.", "Leonard P.", "Claire F.", "Luke M.", "Sarah N.", "Derek G."],
+      "start_date": "2024-11-15",
+      "end_date_estimated": "2025-06-30",
+      "progress_level": "75%",
+      "productivity": "81%",
+      "weekly_calls": 9,
+      "call_hours_total": 7.5,
+      "productivity_comment": "The team maintained good efficiency despite some interruptions due to frequent meetings."
+    },
+    {
+      "name": "AI-Powered Code Review",
+      "description": "AI-based tool for automated code analysis and improvement.",
+      "collaborators": ["Fred C.", "Valerie D.", "Nick S.", "Elise G.", "Matt L."],
+      "start_date": "2025-01-10",
+      "end_date_estimated": "2025-07-20",
+      "progress_level": "52%",
+      "productivity": "73%",
+      "weekly_calls": 7,
+      "call_hours_total": 5.2,
+      "productivity_comment": "Stable productivity, but pair programming sessions are often interrupted by non-essential calls."
+    },
+    {
+      "name": "Cybersecurity Threat Analyzer",
+      "description": "Platform for real-time detection and analysis of cybersecurity threats.",
+      "collaborators": ["Alex P.", "Martha V.", "Thomas N.", "Georgia S.", "Lawrence C.", "Frances L.", "Simon B.", "Irene M.", "Paul T."],
+      "start_date": "2024-09-01",
+      "end_date_estimated": "2025-05-30",
+      "progress_level": "88%",
+      "productivity": "92%",
+      "weekly_calls": 6,
+      "call_hours_total": 4.0,
+      "productivity_comment": "High productivity driven by effective scheduling of calls during peak focus times."
+    },
+    {
+      "name": "Quantum Circuit Simulator",
+      "description": "Advanced simulator for quantum circuits, useful for research and education.",
+      "collaborators": ["Emmanuel R.", "Sophie M.", "David P.", "Anna F.", "Gabriel Z.", "Eleanor D.", "Richard B.", "Martha S.", "Andrew K.", "Claude U.", "Serena H.", "Diego L.", "Naomi V."],
+      "start_date": "2024-12-05",
+      "end_date_estimated": "2025-08-15",
+      "progress_level": "46%",
+      "productivity": "67%",
+      "weekly_calls": 13,
+      "call_hours_total": 11.3,
+      "productivity_comment": "Productivity has been hindered by an excessive number of meetings spread out inefficiently."
+    },
+    {
+      "name": "Distributed Data Lake Manager",
+      "description": "System for managing and orchestrating distributed data lakes in multi-cloud environments.",
+      "collaborators": ["Lucy B.", "Peter G.", "Rose C.", "Steven V.", "Angela T.", "Daniel M.", "Fabian S."],
+      "start_date": "2024-10-20",
+      "end_date_estimated": "2025-07-01",
+      "progress_level": "61%",
+      "productivity": "79%",
+      "weekly_calls": 8,
+      "call_hours_total": 6.4,
+      "productivity_comment": "Good balance between focused work and alignment time, although there's room to optimize call scheduling."
+    },
+    {
+      "name": "Augmented Reality Maintenance Assistant",
+      "description": "AR assistant to support technical maintenance in industrial environments.",
+      "collaborators": ["Camille D.", "John P.", "Rebecca Q.", "Michael N.", "Albert T.", "Veronica C."],
+      "start_date": "2025-02-01",
+      "end_date_estimated": "2025-10-10",
+      "progress_level": "34%",
+      "productivity": "70%",
+      "weekly_calls": 10,
+      "call_hours_total": 8.1,
+      "productivity_comment": "Productivity is increasing, but a more careful call scheduling is recommended."
+    }
+  ]
+}
