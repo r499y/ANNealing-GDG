@@ -92,11 +92,10 @@ export default function Dashboard() {
       <div className="content-container">
         <div className="top-section">
           <div className="task-box">
+            <img src="/Owl.png" alt="Suggerimento" className="suggestion-icon" />
             <h1>Hi Giuse, you were working on:</h1>
             <ul className="task-list">
-              {tasks.map((t) => (
-                <li key={t}>{t}</li>
-              ))}
+              you were working on analyzing system performance and reliability. You focused on code quality, benchmarks, security, and compliance. You also checked API usage, memory stats, user feedback, and deployment logs to spot issues and optimize things. Looks like you're getting ready for a major review or release.
             </ul>
           </div>
         </div>

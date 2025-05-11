@@ -15,6 +15,7 @@ body {
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 14px;
   line-height: 1.5;
+  background-color: #1e1e1e;
 }
 
 #root {
@@ -39,6 +40,13 @@ body {
   padding: 20px;
   margin-left: 0;
   transition: margin-left 0.3s ease;
+}
+
+.suggestion-icon {
+    width: 55px; /* Imposta la larghezza desiderata */
+    height: 55px; /* Imposta l'altezza desiderata */
+    margin-bottom: 0px; /* Aggiunge un po' di spazio tra l'immagine e il testo */
+
 }
 
 /* Sidebar toggle button */
@@ -168,27 +176,26 @@ body {
   font-size: 13px;
 }
 
-/* Main content sections */
 .top-section {
-  margin-top: 60px;
+  margin-top: 60px; /* Mantiene lo spazio sotto l'header fisso */
   margin-bottom: 24px;
+  border-radius: 6px; /* Aggiungi angoli smussati se applicato qui */
 }
 
 .task-box {
-  background: #0078d7;
-  background: linear-gradient(135deg, #0078d7 0%, #00a1ff 100%);
-  color: white;
+  background-color: #2d2d2d; /* Sfondo più scuro */
+  color: #d4d4d4; /* Testo più chiaro */
   border-radius: 6px;
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .task-box h1 {
+  color: #ffffff; /* Testo bianco per risaltare */
   font-size: 24px;
   font-weight: 500;
   margin-bottom: 16px;
 }
-
 .task-list {
   list-style-type: disc;
   padding-left: 20px;
@@ -213,7 +220,8 @@ body {
   transition: box-shadow 0.3s;
   display: flex;
   flex-direction: column;
-  max-height: 400px; /* Imposta un'altezza massima */
+  max-height: 300px;
+  /* border: 1px solid #3c3c3c; Puoi rimuovere o commentare questa linea */
 }
 
 .file-box:hover {
@@ -269,19 +277,20 @@ body {
   font-size: 14px;
 }
 
-/* File checkbox styles */
 .file-checkbox-container {
   margin-right: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 16px; /* Riduci la larghezza */
+  height: 16px; /* Riduci l'altezza */
 }
 
 .file-checkbox {
   cursor: pointer;
-  width: 16px;
-  height: 16px;
-  accent-color: #0078d7;
+  width: 14px; /* Riduci la dimensione della checkbox */
+  height: 14px;
+  accent-color: #0078d7; /* Mantiene il colore blu */
 }
 
 .file-path {
