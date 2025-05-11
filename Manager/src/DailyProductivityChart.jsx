@@ -26,7 +26,7 @@ const DailyProductivityChart = () => {
         labels: ['8:00', '9:00', '10:00', '11:00', '12:00', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30', '18:00'],
         datasets: [
             {
-                label: 'Produttività Media (%)',
+                label: 'Productivity (%)',
                 data: [60, 55, 70, 95, 85, 40, 45, 75, 88, 85, 70, 50],
                 fill: false,
                 backgroundColor: 'rgba(255, 159, 64, 0.2)',
@@ -41,7 +41,7 @@ const DailyProductivityChart = () => {
         plugins: {
             title: {
                 display: true,
-                text: 'Produttività Giornaliera Media (8:00 - 18:00)',
+                text: 'Average Daily Productivity (8:00 - 18:00)',
                 color: '#9cdcfe'
             },
             legend: {

@@ -23,11 +23,11 @@ ChartJS.register(
 
 const ProductivityChart = () => {
     const data = {
-        labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+        labels: ['1', '5', '10', '15', '20', '25', '30'],
         datasets: [
             {
-                label: 'Produttività (%)',
-                data: [92, 88, 85, 82, 83, 84, 80, 79, 91, 88, 87, 91],
+                label: 'Productivity (%)',
+                data: [88, 83, 81, 79, 85, 84, 80],
                 fill: false,
                 backgroundColor: 'rgba(75,192,192,0.2)',
                 borderColor: 'rgba(75,192,192,1)',
@@ -41,7 +41,7 @@ const ProductivityChart = () => {
         plugins: {
             title: {
                 display: true,
-                text: 'Andamento Mensile della Produttività',
+                text: 'Monthly Average Productivity',
                 color: '#9cdcfe' // Stesso colore del titolo delle sezioni
             },
             legend: {

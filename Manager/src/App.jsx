@@ -162,7 +162,7 @@ export default function Dashboard() {
 
             <div className="content-container new-section-container">
                 <div className="projects-container">
-                    <h2>Stato Avanzamento Progetti</h2>
+                    <h2>Project progress status</h2>
                     <div className="projects-list">
                         {projectsData.map((project, index) => {
                             let progressBarClass = "progress-bar";
@@ -198,14 +198,14 @@ export default function Dashboard() {
 
                 <div className="productivity-container">
                     <div className="combined-charts-container"> {/* Contenitore per i grafici e il titolo */}
-                        <h2>Andamento Produttività</h2> {/* Titolo principale ora qui */}
+                        <h2>Productivity trends</h2> {/* Titolo principale ora qui */}
                         <div className="charts"> {/* Nuovo contenitore per i soli grafici */}
                             <div className="monthly-chart-container">
-                                <h3>Mensile</h3>
+                                <h3>Month</h3>
                                 <ProductivityChart />
                             </div>
                             <div className="daily-chart-container">
-                                <h3>Giornaliera (8:00 - 18:00)</h3>
+                                <h3>Day (8:00 - 18:00)</h3>
                                 <DailyProductivityChart />
                             </div>
                         </div>
@@ -214,11 +214,12 @@ export default function Dashboard() {
 
                     <div className="bottom-widgets-container">
                         <div className="call-suggestion-widget">
-                            <p>Suggerisco di distribuire meglio le chiamate nell'arco della giornata considerando i livelli di focus delle diverse persone all'interno dei team, così da non impattare eccessivamente la loro produttività.</p>
+                        <img src="/Owl.png" alt="Suggerimento" className="suggestion-icon" />
+                            <p>I suggest scheduling calls more evenly throughout the day, taking into account the varying focus levels of team members, in order to minimize the impact on their productivity.</p>
                         </div>
                         <div className="loss-estimation-widget">
                             <p>
-                                Stima perdita per distrazioni:
+                                Estimated financial loss due to distractions:
                                 <span className="loss-amount">
                                     ${1250.50.toFixed(2)}
                                 </span>

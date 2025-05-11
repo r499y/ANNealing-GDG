@@ -571,8 +571,16 @@ body {
     color: #a0a0a0;
     font-size: 14px;
     text-align: center;
+    flex-direction: column;
+
 }
 
+.suggestion-icon {
+    width: 55px; /* Imposta la larghezza desiderata */
+    height: 55px; /* Imposta l'altezza desiderata */
+    margin-bottom: 0px; /* Aggiunge un po' di spazio tra l'immagine e il testo */
+
+}
 .call-suggestion-widget p {
     margin: 0;
 }
