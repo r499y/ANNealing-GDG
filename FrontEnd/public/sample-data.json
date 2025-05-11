@@ -1,0 +1,84 @@
+{
+  "general_overview": "This is a summary of the current analysis.",
+  "treshold": 0.75,
+  "items": {
+    "item1": {
+      "title": "Class polygon",
+      "path_or_link": "geometry.cpp",
+      "description": "This file contains the class polygon.",
+      "relevance_score": 0.90
+    },
+    "item2": {
+      "title": "Code Quality Report",
+      "path_or_link": "quality-check.html",
+      "description": "Summary of code quality and linting issues.",
+      "relevance_score": 0.82
+    },
+    "item3": {
+      "title": "Performance Benchmark",
+      "path_or_link": "benchmark.csv",
+      "description": "Data from performance testing on recent builds.",
+      "relevance_score": 0.91
+    },
+    "item4": {
+      "title": "Security Audit Summary",
+      "path_or_link": "security-audit.pdf",
+      "description": "Report outlining recent security checks and issues.",
+      "relevance_score": 0.88
+    },
+    "item5": {
+      "title": "Deployment Log",
+      "path_or_link": "deploy-log.txt",
+      "description": "Log of the latest deployment activity.",
+      "relevance_score": 0.65
+    },
+    "item6": {
+      "title": "User Feedback Overview",
+      "path_or_link": "user-feedback.json",
+      "description": "Collected feedback from users post-deployment.",
+      "relevance_score": 0.76
+    },
+    "item7": {
+      "title": "Memory Usage Report",
+      "path_or_link": "memory-usage.xlsx",
+      "description": "Memory profiling and usage stats.",
+      "relevance_score": 0.83
+    },
+    "item8": {
+      "title": "Error Logs",
+      "path_or_link": "errors.log",
+      "description": "Application error logs from the last week.",
+      "relevance_score": 0.68
+    },
+    "item9": {
+      "title": "Load Test Results",
+      "path_or_link": "load-test.csv",
+      "description": "Results from recent load and stress testing.",
+      "relevance_score": 0.87
+    },
+    "item10": {
+      "title": "API Usage Stats",
+      "path_or_link": "api-stats.json",
+      "description": "API call frequency and endpoint performance.",
+      "relevance_score": 0.79
+    },
+    "item11": {
+      "title": "Compliance Checklist",
+      "path_or_link": "compliance.md",
+      "description": "Checklist used to verify compliance with standards.",
+      "relevance_score": 0.74
+    },
+    "item12": {
+      "title": "System Health Summary",
+      "path_or_link": "system-health.html",
+      "description": "Overview of current system health metrics.",
+      "relevance_score": 0.85
+    },
+    "item13": {
+      "title": "Build History",
+      "path_or_link": "build-history.csv",
+      "description": "Historical records of builds and associated metadata.",
+      "relevance_score": 0.72
+    }
+  }
+}
