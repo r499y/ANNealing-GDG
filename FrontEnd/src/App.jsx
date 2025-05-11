@@ -94,9 +94,7 @@ export default function Dashboard() {
           <div className="task-box">
             <img src="/Owl.png" alt="Suggerimento" className="suggestion-icon" />
             <h1>Hi Giuse, you were working on:</h1>
-            <ul className="task-list">
-              you were working on analyzing system performance and reliability. You focused on code quality, benchmarks, security, and compliance. You also checked API usage, memory stats, user feedback, and deployment logs to spot issues and optimize things. Looks like you're getting ready for a major review or release.
-            </ul>
+            <p className="task-list">You were analyzing system performance and reliability across various dimensions of a software project. The focus was on ensuring code quality, evaluating benchmark results, and verifying compliance with security and performance standards. Recent activities included reviewing API usage statistics, memory consumption, and feedback from users. Additionally, you examined deployment logs, error reports, and build history to detect issues and optimize resource usage. The checklist for regulatory compliance and audit trails suggests that the work is part of a formal evaluation or release preparation process.</p>
           </div>
         </div>
 

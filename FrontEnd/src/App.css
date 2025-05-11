@@ -43,8 +43,8 @@ body {
 }
 
 .suggestion-icon {
-    width: 55px; /* Imposta la larghezza desiderata */
-    height: 55px; /* Imposta l'altezza desiderata */
+    width: 60px; /* Imposta la larghezza desiderata */
+    height: 60px; /* Imposta l'altezza desiderata */
     margin-bottom: 0px; /* Aggiunge un po' di spazio tra l'immagine e il testo */
 
 }
@@ -198,7 +198,7 @@ body {
 }
 .task-list {
   list-style-type: disc;
-  padding-left: 20px;
+  
 }
 
 .task-list li {
