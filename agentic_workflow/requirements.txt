@@ -1,0 +1,5 @@
+opencv-python
+mediapipe
+langchain_google_genai
+langchain
+smolagents
