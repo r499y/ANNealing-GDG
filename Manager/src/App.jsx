@@ -176,7 +176,7 @@ export default function Dashboard() {
                         </div>
                         <div className="loss-estimation-widget">
                             <p>
-                                Estimated financial loss due to distractions:
+                                Estimated financial loss due to distractions: <br/>
                                 <span className="loss-amount">${1250.50.toFixed(2)}</span>
                             </p>
                         </div>

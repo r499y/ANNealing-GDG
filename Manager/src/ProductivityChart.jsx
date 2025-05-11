@@ -41,7 +41,7 @@ const ProductivityChart = () => {
         plugins: {
             title: {
                 display: true,
-                text: 'Monthly Average Productivity',
+                text: 'Average Monthly Productivity',
                 color: '#9cdcfe' // Stesso colore del titolo delle sezioni
             },
             legend: {
