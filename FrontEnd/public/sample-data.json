@@ -3,10 +3,10 @@
   "treshold": 0.75,
   "items": {
     "item1": {
-      "title": "File Analysis Report",
-      "path_or_link": "report.pdf",
-      "description": "This report contains analysis results.",
-      "relevance_score": 0.70
+      "title": "Class polygon",
+      "path_or_link": "geometry.cpp",
+      "description": "This file contains the class polygon.",
+      "relevance_score": 0.90
     },
     "item2": {
       "title": "Code Quality Report",
