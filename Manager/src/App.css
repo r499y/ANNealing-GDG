@@ -415,6 +415,7 @@ body {
     color: #9cdcfe;
     font-size: 18px;
     margin-bottom: 16px;
+    text-align: center; 
 }
 
 .projects-list {
@@ -449,10 +450,26 @@ body {
 }
 
 .progress-bar {
-    background-color: #0078d7;
-    height: 100%;
+    /* Assicurati di avere questi stili esistenti per la barra */
+    background-color: #0078d7; /* Colore predefinito */
+    height: 10px;
     border-radius: 4px;
-    transition: width 0.2s ease-in-out;
+    transition: width 0.2s ease-in-out; /* Già presente, ottimo! */
+}
+
+/* Stili per i progetti con completamento inferiore al 50% */
+.progress-bar.red {
+    background-color: #dc3545; /* Rosso */
+}
+
+/* Stili per i progetti con completamento tra il 50% e il 75% */
+.progress-bar.yellow {
+    background-color: #ffc107; /* Giallo */
+}
+
+/* Stili per i progetti con completamento superiore al 75% */
+.progress-bar.green {
+    background-color: #28a745; /* Verde */
 }
 
 .project-item p {
@@ -463,66 +480,127 @@ body {
 
 /* Colonna destra (grafico e stima) */
 .productivity-container {
-    flex: 2; /* Prende più della metà dello spazio */
+    flex: 2;
+    max-width: 55%;
+    display: flex;
+    flex-direction: column; /* Mantiene la disposizione verticale degli elementi interni */
+    gap: 20px; /* Spazio tra le sezioni (titolo, grafici, widget) */
+    height: 100%;
+}
+
+.productivity-container {
+    flex: 2;
     max-width: 55%;
     display: flex;
     flex-direction: column;
+    gap: 20px; /* Spazio tra le sezioni (grafici e widget) */
+    height: 100%;
+}
+
+/* Contenitore per i grafici e il titolo */
+.combined-charts-container {
+    background-color: #252526;
+    border-radius: 6px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; /* Titolo sopra i grafici */
+    gap: 16px; /* Spazio tra titolo e grafici */
+}
+
+.combined-charts-container h2 {
+    color: #9cdcfe;
+    font-size: 24px;
+    margin-bottom: 0; /* Rimuovi il margin-bottom precedente */
+    text-align: center;
+    width: 100%;
+}
+
+/* Contenitore per affiancare i grafici */
+.charts {
+    display: flex;
     gap: 20px;
 }
 
-.chart-container {
-    background-color: #252526;
-    border-radius: 6px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    transition: box-shadow 0.2s;
-    height: 70%; /* Regola l'altezza in base alle esigenze */
+/* Stili per il contenitore del grafico mensile */
+.monthly-chart-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
-}
-
-.chart-container:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.chart-container h2 {
-    color: #9cdcfe;
-    font-size: 18px;
-    margin-bottom: 16px;
-}
-
-.chart-placeholder {
-    /* Stili per il segnaposto del grafico */
-    flex-grow: 1;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    color: #666;
-    font-size: 16px;
 }
 
-.loss-estimation {
+.monthly-chart-container h3 {
+    color: #cccccc;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+/* Stili per il contenitore del grafico giornaliero */
+.daily-chart-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.daily-chart-container h3 {
+    color: #cccccc;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.bottom-widgets-container {
+    display: flex;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.call-suggestion-widget {
     background-color: #333333;
     border-radius: 6px;
     padding: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    height: 30%; /* Regola l'altezza */
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #a0a0a0;
+    font-size: 14px;
+    text-align: center;
 }
 
-.loss-estimation p {
-    color: #d4d4d4;
-    font-size: 14px;
+.call-suggestion-widget p {
+    margin: 0;
+}
+
+.loss-estimation-widget {
+    background-color: #333333;
+    border-radius: 6px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #a0a0a0;
+    font-size: 16px;
+    text-align: center;
+}
+
+.loss-estimation-widget p {
+    margin-bottom: 8px;
 }
 
 .loss-amount {
     color: #d7ba7d;
     font-weight: bold;
+    font-size: 18px;
 }
-
 /* Responsive (adatta se necessario) */
 @media (max-width: 768px) {
     .new-section-container {
@@ -582,10 +660,11 @@ body {
 .project-details-container {
     display: flex;
     gap: 20px;
+    align-items: flex-start;
 }
 
 .team-members {
-    flex: 1;
+    flex: 0 0 50%;
     background-color: #252526;
     border-radius: 6px;
     padding: 16px;
@@ -593,9 +672,11 @@ body {
 }
 
 .team-members h3 {
+    flex: 1;
     color: #9cdcfe;
     font-size: 18px;
     margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .team-members ul {

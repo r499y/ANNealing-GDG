@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { faker } from '@faker-js/faker'; // Per generare dati casuali (npm install @faker-js/faker)
+import ProductivityChart from './ProductivityChart';
+import DailyProductivityChart from "./DailyProductivityChart";
+
 
 const projectsData = [  // Dati di esempio per i progetti
     { name: "Progetto 1", progress: 75, startDate: "2024-01-15", endDate: "2024-03-30", description: "Sviluppo nuova funzionalità X" },
@@ -23,13 +26,93 @@ function generateTeamMembers() {
     return members;
 }
 
+
+// Funzione per assegnare i livelli di focus (e quindi i colori) in modo prefissato per progetto
+const getColorAssignmentForProject = (projectId, numMembers) => {
+    let assignment = [];
+    if (projectId === 1) {
+        assignment = Array(Math.min(numMembers, 3)).fill('low').concat(Array(Math.max(0, Math.min(numMembers - 3, 2))).fill('average')).concat(Array(Math.max(0, numMembers - 5)).fill('deep'));
+    } else if (projectId === 2) {
+        assignment = Array(Math.min(numMembers, 2)).fill('low').concat(Array(Math.max(0, Math.min(numMembers - 2, 3))).fill('average')).concat(Array(Math.max(0, numMembers - 5)).fill('deep'));
+    } else if (projectId === 3) {
+        assignment = Array(Math.min(numMembers, 4)).fill('low').concat(Array(Math.max(0, Math.min(numMembers - 4, 1))).fill('average')).concat(Array(Math.max(0, numMembers - 5)).fill('deep'));
+    } else {
+        const numLow = faker.number.int({ min: 1, max: Math.floor(numMembers / 2) });
+        const numAverage = faker.number.int({ min: 0, max: numMembers - numLow - 1 });
+        const numDeep = numMembers - numLow - numAverage;
+        assignment = Array(numLow).fill('low').concat(Array(numAverage).fill('average')).concat(Array(numDeep).fill('deep'));
+    }
+
+    // Assicurati che l'array abbia la lunghezza corretta
+    while (assignment.length < numMembers) {
+        assignment.push(assignment[assignment.length - 1] || 'average'); // Riempi con l'ultimo colore o 'average'
+    }
+    return assignment.slice(0, numMembers); // Tronca se è troppo lungo (per sicurezza)
+};
+
+function ProjectDetails({ project, onBack }) {
+    const productivity = faker.number.int({ min: 60, max: 95 });
+    const callsLastWeek = faker.number.int({ min: 20, max: 150 });
+    const totalCallDuration = faker.number.int({ min: 300, max: 3600 });
+
+    const teamMembersWithFocus = project.teamMembers.map((member, index) => {
+        const colorAssignment = getColorAssignmentForProject(project.id, project.teamMembers.length);
+        return {
+            ...member,
+            focus: colorAssignment[index],
+        };
+    });
+
+    return (
+        <div className="project-details">
+            <button className="back-button" onClick={onBack}>
+                ← Back to Dashboard
+            </button>
+            <div className="project-header">
+                <h2>{project.name}</h2>
+                <p>
+                    {`Start Date: ${project.startDate}  `}
+                    {project.endDate && `  End Date: ${project.endDate}`}
+                </p>
+            </div>
+            <p className="project-description">{project.description}</p>
+
+            <div className="project-details-container">
+                <div className="team-members">
+                    <h3>Team Members</h3>
+                    <ul>
+                        {teamMembersWithFocus.map((member, index) => (
+                            <li key={index} className={`member-${member.focus}`}>
+                                {member.name}
+                                <span className={`focus-indicator ${member.focus}-focus`}></span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className="productivity-report">
+                    <h3>Productivity Report</h3>
+                    <p>Productivity: {productivity}%</p>
+                    <div className="call-stats">
+                        <p>Calls Last Week: {callsLastWeek}</p>
+                        <p>Total Call Duration: {Math.floor(totalCallDuration / 60)} minutes</p>
+                    </div>
+                    <p className="team-comment">
+                        {faker.lorem.sentence()}
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function Dashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [backendData, setBackendData] = useState(null);
     const [selectedProject, setSelectedProject] = useState(null);
     const [expandedItemTitle, setExpandedItemTitle] = useState(null);
     const [checkedFiles, setCheckedFiles] = useState({});
-    const [selectedItem, setSelectedItem] = useState(null); // Assicurati che selectedItem sia definito
+    const [selectedItem, setSelectedItem] = useState(null);
 
     useEffect(() => {
         fetch("/sample-data.json")
@@ -38,7 +121,6 @@ export default function Dashboard() {
                 console.log("Dati JSON caricati:", data);
                 setBackendData(data);
 
-                // Initialize all files as checked
                 const initialCheckedState = {};
                 Object.values(data.items).forEach(item => {
                     initialCheckedState[item.title] = true;
@@ -51,39 +133,19 @@ export default function Dashboard() {
     }, []);
 
     const tasks = [backendData?.general_overview];
-
-    const recentFiles = backendData
-        ? Object.values(backendData.items)
-            .filter((item) => item.relevance_score > backendData.treshold)
-            .map((item) => item.title)
-        : [];
-
-    const unusedFiles = backendData
-        ? Object.values(backendData.items)
-            .filter((item) => item.relevance_score < backendData.treshold)
-            .map((item) => item.title)
-        : [];
-
-    const pastConversations = [
-        "How to fix segmentation fault?",
-        "What is the purpose of CountNumBeds?",
-        "React sidebar toggle example",
-        "Best practices for C++ class design",
-        "Translate error message from g++",
-    ];
+    const recentFiles = backendData ? Object.values(backendData.items).filter((item) => item.relevance_score > backendData.treshold).map((item) => item.title) : [];
+    const unusedFiles = backendData ? Object.values(backendData.items).filter((item) => item.relevance_score < backendData.treshold).map((item) => item.title) : [];
+    const pastConversations = ["How to fix segmentation fault?", "What is the purpose of CountNumBeds?", "React sidebar toggle example", "Best practices for C++ class design", "Translate error message from g++"];
 
     const handleCheckboxChange = (title, event) => {
         event.stopPropagation();
-        setCheckedFiles(prev => ({
-            ...prev,
-            [title]: !prev[title]
-        }));
+        setCheckedFiles(prev => ({ ...prev, [title]: !prev[title] }));
     };
 
     const handleProjectClick = (projectName) => {
         const project = projectsData.find(p => p.name === projectName);
         if (project) {
-            setSelectedProject({ ...project, teamMembers: generateTeamMembers() }); // Aggiungi membri del team
+            setSelectedProject({ ...project, teamMembers: generateTeamMembers() });
         }
     };
 
@@ -97,68 +159,71 @@ export default function Dashboard() {
 
     return (
         <div className="dashboard">
-            {/* Sidebar toggle button */}
-            <button className="sidebar-toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
-                <span className="hamburger-icon"></span>
-            </button>
 
-            {/* Sidebar */}
-            <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-                <div className="sidebar-header">
-                    <h2>Last conversation with AI</h2>
-                    <button className="close-btn" onClick={() => setSidebarOpen(false)}>
-                        ✕
-                    </button>
-                </div>
-                <ul className="conversation-list">
-                    {pastConversations.map((item, index) => (
-                        <li key={index}>
-                            <div className="conversation-item">
-                                <span className="conversation-icon">💬</span>
-                                <span className="conversation-text">{item}</span>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-
-            {/* Main content */}
             <div className="content-container new-section-container">
                 <div className="projects-container">
                     <h2>Stato Avanzamento Progetti</h2>
                     <div className="projects-list">
-                        {projectsData.map((project, index) => (
-                            <div
-                                key={index}
-                                className="project-item"
-                                onClick={() => handleProjectClick(project.name)}
-                            >
-                                <h3>{project.name}</h3>
-                                <div className="progress-bar-container">
-                                    <div
-                                        className="progress-bar"
-                                        style={{ width: `${project.progress}%` }}
-                                    ></div>
+                        {projectsData.map((project, index) => {
+                            let progressBarClass = "progress-bar";
+                            if (project.progress < 50) {
+                                progressBarClass += " red";
+                            } else if (project.progress <= 75) {
+                                progressBarClass += " yellow";
+                            } else {
+                                progressBarClass += " green";
+                            }
+
+                            return (
+                                <div
+                                    key={index}
+                                    className="project-item"
+                                    onClick={() => handleProjectClick(project.name)}
+                                >
+                                    <h3>{project.name}</h3>
+                                    <div className="progress-bar-container">
+                                        <div
+                                            className={progressBarClass}
+                                            style={{ width: `${project.progress}%` }}
+                                        ></div>
+                                    </div>
+                                    <p>{project.progress}%</p>
                                 </div>
-                                <p>{project.progress}%</p>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
 
+                
+
                 <div className="productivity-container">
-                    <div className="chart-container" > {/* Ho rimosso onClick qui, lo avevamo messo solo come esempio */}
-                        <h2>Andamento Produttività Generale</h2>
-                        {/* Qui andrà il componente del grafico (es. da Chart.js) */}
-                        <div className="chart-placeholder">Grafico qui</div>
+                    <div className="combined-charts-container"> {/* Contenitore per i grafici e il titolo */}
+                        <h2>Andamento Produttività</h2> {/* Titolo principale ora qui */}
+                        <div className="charts"> {/* Nuovo contenitore per i soli grafici */}
+                            <div className="monthly-chart-container">
+                                <h3>Mensile</h3>
+                                <ProductivityChart />
+                            </div>
+                            <div className="daily-chart-container">
+                                <h3>Giornaliera (8:00 - 18:00)</h3>
+                                <DailyProductivityChart />
+                            </div>
+                        </div>
                     </div>
-                    <div className="loss-estimation">
-                        <p>
-                            Stima perdita per distrazioni:
-                            <span className="loss-amount">
-                                 ${1250.50.toFixed(2)} {/* Ho messo un valore statico di esempio */}
-                            </span>
-                        </p>
+                    
+
+                    <div className="bottom-widgets-container">
+                        <div className="call-suggestion-widget">
+                            <p>Suggerisco di distribuire meglio le chiamate nell'arco della giornata considerando i livelli di focus delle diverse persone all'interno dei team, così da non impattare eccessivamente la loro produttività.</p>
+                        </div>
+                        <div className="loss-estimation-widget">
+                            <p>
+                                Stima perdita per distrazioni:
+                                <span className="loss-amount">
+                                    ${1250.50.toFixed(2)}
+                                </span>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,9 +243,7 @@ export default function Dashboard() {
                                         <li key={item.title} className="file-item">
                                             <div
                                                 className="file-item-header"
-                                                onClick={() =>
-                                                    setExpandedItemTitle(isExpanded ? null : item.title)
-                                                }
+                                                onClick={() => setExpandedItemTitle(isExpanded ? null : item.title)}
                                             >
                                                 <div className="file-name">
                                                     <span className="file-icon">📄</span>
@@ -269,66 +332,3 @@ export default function Dashboard() {
     );
 }
 
-function ProjectDetails({ project, onBack }) {
-    const productivity = faker.number.int({ min: 60, max: 95 });
-    const callsLastWeek = faker.number.int({ min: 20, max: 150 });
-    const totalCallDuration = faker.number.int({ min: 300, max: 3600 }); // In seconds
-
-    // Function to assign focus levels
-    const assignFocusLevels = (members) => {
-        const focusLevels = ['deep', 'average', 'low'];
-        let levelIndex = 0;
-        return members.map((member, index) => {
-            const updatedMember = {
-                ...member,
-                focus: focusLevels[levelIndex]
-            };
-            levelIndex = (levelIndex + 1) % focusLevels.length; // Cycle through levels
-            return updatedMember;
-        });
-    };
-
-    const membersWithFocus = assignFocusLevels(project.teamMembers);
-
-    return (
-        <div className="project-details">
-            <button className="back-button" onClick={onBack}>
-                ← Back to Dashboard
-            </button>
-            <div className="project-header">
-                <h2>{project.name}</h2>
-                <p>
-                    {`Start Date: ${project.startDate}  `}
-                    {project.endDate && `  End Date: ${project.endDate}`}
-                </p>
-            </div>
-            <p className="project-description">{project.description}</p>
-
-            <div className="project-details-container">
-                <div className="team-members">
-                    <h3>Team Members</h3>
-                    <ul>
-                        {membersWithFocus.map((member, index) => (
-                            <li key={index} className={`member-${member.focus}`}>
-                                {member.name}
-                                <span className={`focus-indicator ${member.focus}-focus`}></span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className="productivity-report">
-                    <h3>Productivity Report</h3>
-                    <p>Productivity: {productivity}%</p>
-                    <div className="call-stats">
-                        <p>Calls Last Week: {callsLastWeek}</p>
-                        <p>Total Call Duration: {Math.floor(totalCallDuration / 60)} minutes</p>
-                    </div>
-                    <p className="team-comment">
-                        {faker.lorem.sentence()}
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
-}
