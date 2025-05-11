@@ -4,79 +4,79 @@
   "items": {
     "item1": {
       "title": "File Analysis Report",
-      "path_or_link": "/files/report.pdf",
+      "path_or_link": "report.pdf",
       "description": "This report contains analysis results.",
       "relevance_score": 0.70
     },
     "item2": {
       "title": "Code Quality Report",
-      "path_or_link": "/files/quality-check.html",
+      "path_or_link": "quality-check.html",
       "description": "Summary of code quality and linting issues.",
       "relevance_score": 0.82
     },
     "item3": {
       "title": "Performance Benchmark",
-      "path_or_link": "/files/benchmark.csv",
+      "path_or_link": "benchmark.csv",
       "description": "Data from performance testing on recent builds.",
       "relevance_score": 0.91
     },
     "item4": {
       "title": "Security Audit Summary",
-      "path_or_link": "/files/security-audit.pdf",
+      "path_or_link": "security-audit.pdf",
       "description": "Report outlining recent security checks and issues.",
       "relevance_score": 0.88
     },
     "item5": {
       "title": "Deployment Log",
-      "path_or_link": "/files/deploy-log.txt",
+      "path_or_link": "deploy-log.txt",
       "description": "Log of the latest deployment activity.",
       "relevance_score": 0.65
     },
     "item6": {
       "title": "User Feedback Overview",
-      "path_or_link": "/files/user-feedback.json",
+      "path_or_link": "user-feedback.json",
       "description": "Collected feedback from users post-deployment.",
       "relevance_score": 0.76
     },
     "item7": {
       "title": "Memory Usage Report",
-      "path_or_link": "/files/memory-usage.xlsx",
+      "path_or_link": "memory-usage.xlsx",
       "description": "Memory profiling and usage stats.",
       "relevance_score": 0.83
     },
     "item8": {
       "title": "Error Logs",
-      "path_or_link": "/files/errors.log",
+      "path_or_link": "errors.log",
       "description": "Application error logs from the last week.",
       "relevance_score": 0.68
     },
     "item9": {
       "title": "Load Test Results",
-      "path_or_link": "/files/load-test.csv",
+      "path_or_link": "load-test.csv",
       "description": "Results from recent load and stress testing.",
       "relevance_score": 0.87
     },
     "item10": {
       "title": "API Usage Stats",
-      "path_or_link": "/files/api-stats.json",
+      "path_or_link": "api-stats.json",
       "description": "API call frequency and endpoint performance.",
       "relevance_score": 0.79
     },
     "item11": {
       "title": "Compliance Checklist",
-      "path_or_link": "/files/compliance.md",
+      "path_or_link": "compliance.md",
       "description": "Checklist used to verify compliance with standards.",
       "relevance_score": 0.74
     },
     "item12": {
       "title": "System Health Summary",
-      "path_or_link": "/files/system-health.html",
+      "path_or_link": "system-health.html",
       "description": "Overview of current system health metrics.",
       "relevance_score": 0.85
     },
     "item13": {
       "title": "Build History",
-      "path_or_link": "/files/build-history.csv",
+      "path_or_link": "build-history.csv",
       "description": "Historical records of builds and associated metadata.",
       "relevance_score": 0.72
     }
